@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@core/*": ["src/core/*"]
+    },
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "module": "commonjs",
+    "jsx": "react",
+    "jsxFactory": "React.createElement",
+    "esModuleInterop": true
+  }
+}
