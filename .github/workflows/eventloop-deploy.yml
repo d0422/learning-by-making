@@ -1,0 +1,27 @@
+name: eventloop-visualizer-deploy
+
+on:
+  push:
+    branches: 'main'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ✅ 코드 체크아웃
+        uses: actions/checkout@v3
+
+      - name: ⬇️ 의존성 설치
+        run: pnpm install
+
+      - name: 📦 프로젝트 빌드
+        working-directory: './apps/jsEventLoopVisualizer'
+        run: pnpm run build
+
+      - name: 🚀github pages 배포
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          working-directory: './apps/jsEventLoopVisualizer'
