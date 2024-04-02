@@ -4,6 +4,7 @@ import {
   getDiffKeysObject,
   getNewKeysObject,
 } from './src/objects';
+import { Queue } from './src/Queue';
 
 export {
   getLongerArrayLength,
@@ -11,4 +12,5 @@ export {
   getDeleteKeysArray,
   getDiffKeysObject,
   getNewKeysObject,
+  Queue,
 };
