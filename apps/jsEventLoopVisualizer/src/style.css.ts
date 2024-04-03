@@ -1,4 +1,10 @@
 import { style, globalStyle } from '@vanilla-extract/css';
+export const leftFlexBox = style({
+  display: 'flex',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  gap: 5,
+});
 
 export const centeredFlexBox = style({
   display: 'flex',
@@ -28,12 +34,22 @@ export const leftText = style({
   width: '100%',
 });
 
+export const task = style({
+  backgroundColor: '#272823',
+  color: '#d3d3d3',
+  padding: '15px',
+  borderRadius: 10,
+  transition: 'all',
+});
+
 export const leftTitle = style([titleText, leftText]);
 
 const baseContainer = style({
   borderRadius: 15,
   borderWidth: 1,
   borderStyle: 'double',
+  paddingLeft: 10,
+  paddingRight: 10,
 });
 
 export const callStack = style([
@@ -42,6 +58,11 @@ export const callStack = style([
     width: '300px',
     height: '500px',
     borderColor: '#77BE4C',
+    display: 'flex',
+    flexDirection: 'column-reverse',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    padding: 10,
   },
 ]);
 
