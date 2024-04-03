@@ -4,7 +4,15 @@ import { MicroTaskQueue } from './components/MicroTaskQueue';
 import { centeredFlexBox, centeredFlexBoxColumn } from './style.css';
 import { AnimationFrames } from './components/AnimationFrames';
 import { EventLoop } from './components/EventLoop';
+import { useJobQueue } from './hooks/useJobQueue';
+import { useEffect } from 'react';
 function App() {
+  const jobQueue = useJobQueue();
+  useEffect(() => {
+    jobQueue.addMicroTask('foo()');
+    jobQueue.addMacroTask('bar()');
+    jobQueue.addAnimationFrames('animation()');
+  }, []);
   return (
     <>
       <div
