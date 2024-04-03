@@ -45,6 +45,9 @@ importers:
       '@repo/typescript-config':
         specifier: '*'
         version: link:../../packages/typescript-config
+      '@repo/utils':
+        specifier: '*'
+        version: link:../../packages/utils
       '@types/react':
         specifier: ^18.2.66
         version: 18.2.73

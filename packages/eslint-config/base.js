@@ -13,6 +13,7 @@ module.exports = {
   globals: {
     React: true,
     JSX: true,
+    NodeJS: true,
   },
   env: {
     browser: true,
@@ -36,5 +37,7 @@ module.exports = {
   ],
   rules: {
     'no-console': ['error'],
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['error'],
   },
 };
