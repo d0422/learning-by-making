@@ -1,9 +1,11 @@
 export const EventLoopSVG = ({
   width,
   height,
+  className,
 }: {
   width: number | string;
   height: number | string;
+  className?: string;
 }) => {
   return (
     <svg
@@ -16,6 +18,7 @@ export const EventLoopSVG = ({
       height={height || '612.006px'}
       viewBox="0 0 612.005 612.006"
       fill="white"
+      className={className}
     >
       <g>
         <g id="_x37__22_">

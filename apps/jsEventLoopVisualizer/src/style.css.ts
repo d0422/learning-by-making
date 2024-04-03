@@ -1,4 +1,4 @@
-import { style, globalStyle } from '@vanilla-extract/css';
+import { style, globalStyle, keyframes } from '@vanilla-extract/css';
 export const leftFlexBox = style({
   display: 'flex',
   justifyContent: 'flex-start',
@@ -102,4 +102,15 @@ globalStyle('html, body', {
   alignItems: 'center',
   width: '100%',
   height: '100%',
+});
+
+const rotate = keyframes({
+  '0%': { transform: 'rotate(0deg)' },
+  '100%': { transform: 'rotate(360deg)' },
+});
+
+export const infiniteRotate = style({
+  animationName: rotate,
+  animationDuration: '2s',
+  animationIterationCount: 'infinite',
 });
