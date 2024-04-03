@@ -11,6 +11,7 @@ interface JobQueue {
   addAnimationFrames: (value: string) => void;
   getNextJob: () => string;
   popCallStack: () => void;
+  isEnd: () => boolean;
 }
 
 export const useJobQueue = create<JobQueue>((set) => ({
@@ -48,6 +49,25 @@ export const useJobQueue = create<JobQueue>((set) => ({
         ...state,
       };
     });
+  },
+
+  isEnd: () => {
+    let isEnd = false;
+    set((state) => {
+      const checkList = [
+        state.microTask,
+        state.macroTask,
+        state.animationFrames,
+      ];
+      if (
+        checkList.every((each) => each.isEmpty()) &&
+        state.callStack.length === 0
+      )
+        isEnd = true;
+
+      return { ...state };
+    });
+    return isEnd;
   },
 
   addMicroTask: (value: string) => {

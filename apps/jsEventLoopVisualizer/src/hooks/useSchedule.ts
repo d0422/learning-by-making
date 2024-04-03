@@ -1,14 +1,22 @@
+import { useState } from 'react';
 import { useJobQueue } from './useJobQueue';
 
 let timer: NodeJS.Timeout;
 export const useSchedule = (second?: number) => {
-  const getNextJob = useJobQueue((state) => state.getNextJob);
-  const popCallStack = useJobQueue((state) => state.popCallStack);
+  const [isScheduling, setScheduling] = useState(false);
+  const { getNextJob, popCallStack, isEnd } = useJobQueue();
 
   const startSchedule = () => {
+    setScheduling(true);
     let didPopCallStack = true;
     timer = setInterval(
       () => {
+        if (isEnd()) {
+          setScheduling(false);
+          clearInterval(timer);
+          return;
+        }
+
         if (didPopCallStack) {
           getNextJob();
           didPopCallStack = false;
@@ -25,5 +33,5 @@ export const useSchedule = (second?: number) => {
     if (timer) clearInterval(timer);
   };
 
-  return { startSchedule, stopSchedule };
+  return { startSchedule, stopSchedule, isScheduling };
 };
