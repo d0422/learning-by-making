@@ -1,7 +1,10 @@
 export class Queue<T> {
   #list: T[];
-  constructor() {
+  constructor(originArr?: T[]) {
     this.#list = [];
+    if (originArr) {
+      this.#list = [...originArr];
+    }
   }
 
   inqueue(value: T) {
@@ -14,10 +17,14 @@ export class Queue<T> {
 
   dequeue() {
     if (this.isEmpty()) throw new Error('큐가 비었습니다.');
-    return this.#list.shift();
+    return this.#list.shift()!;
   }
 
   getValue() {
     return this.#list[0];
+  }
+
+  getQueueList() {
+    return [...this.#list];
   }
 }
