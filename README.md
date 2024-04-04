@@ -24,3 +24,14 @@ useState의 구현은 실제와 분명히 다르며, Fiber 아키텍쳐를 통�
 
 1. [진짜 리액트는 어떻게 생겼나? (1) - useState 따라가며 흐름잡기](https://0422.tistory.com/321)
 2. [진짜 리액트는 어떻게 생겼나? (2) - renderWithHooks와 훅의 본체](https://0422.tistory.com/322)
+
+## JS Eventloop visualizer
+
+배포 주소 : https://d0422.github.io/learning-by-making/
+
+헷갈리는 개념인 자바스크립트의 브라우저 이벤트 루프 우선순위를 시각화하여 빠르게 이해하기 위해 만든 프로젝트입니다.
+
+현재는 기본 코드 구성에 대한 시각화만 제공합니다.
+추후 사용자의 코드 수정시 파싱하여 사용자의 입력값에 대한 시각화를 제공할 예정입니다.
+
+![jsVisualizer](https://github.com/d0422/learning-by-making/assets/99241871/383519cc-4c0d-4d5b-bf7a-6815cbf0bcc9)
