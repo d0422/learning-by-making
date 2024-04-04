@@ -127,7 +127,7 @@ export const codeDefaultStyle = style({
   top: 0,
   left: 0,
   right: 0,
-  width: '400px',
+  width: '300px',
   height: '400px',
   padding: 10,
   fontSize: 16,
@@ -144,7 +144,6 @@ export const textArea = style([
     resize: 'none',
     caretColor: 'white',
     zIndex: 999,
-    whiteSpace: 'nowrap',
   },
 ]);
 

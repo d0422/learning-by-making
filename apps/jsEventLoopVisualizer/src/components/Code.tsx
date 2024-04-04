@@ -5,7 +5,7 @@ import 'highlight.js/styles/vs2015.css';
 import { codeArea, editorContainer, textArea } from '@/style.css';
 Promise.resolve();
 export const Code = () => {
-  const [code, setCode] = useState(`
+  const [code] = useState(`
   function foo(){
     console.log("microTask");
   }
@@ -39,7 +39,11 @@ export const Code = () => {
 
   return (
     <div className={editorContainer}>
-      <textarea className={textArea} onChange={(e) => setCode(e.target.value)}>
+      <textarea
+        className={textArea}
+        // onChange={(e) => setCode(e.target.value)}
+        readOnly
+      >
         {code}
       </textarea>
       <pre className={codeArea}>
