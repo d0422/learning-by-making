@@ -114,3 +114,38 @@ export const infiniteRotate = style({
   animationDuration: '2s',
   animationIterationCount: 'infinite',
 });
+
+export const editorContainer = style({
+  position: 'relative',
+  width: '400px',
+  height: '400px',
+  padding: 10,
+});
+
+export const codeDefaultStyle = style({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  width: '400px',
+  height: '400px',
+  padding: 10,
+  fontSize: 16,
+  textOverflow: 'ellipsis',
+  font: 'inherit',
+});
+
+export const textArea = style([
+  codeDefaultStyle,
+  {
+    position: 'absolute',
+    background: 'transparent',
+    color: 'transparent',
+    resize: 'none',
+    caretColor: 'white',
+    zIndex: 999,
+    whiteSpace: 'nowrap',
+  },
+]);
+
+export const codeArea = style([codeDefaultStyle]);

@@ -6,6 +6,7 @@ import { AnimationFrames } from './components/AnimationFrames';
 import { EventLoop } from './components/EventLoop';
 import { useJobQueue } from './hooks/useJobQueue';
 import { useEffect } from 'react';
+import { Code } from './components/Code';
 function App() {
   const jobQueue = useJobQueue();
   useEffect(() => {
@@ -29,6 +30,7 @@ function App() {
           <MicroTaskQueue />
           <AnimationFrames />
         </div>
+        <Code />
       </div>
     </>
   );
