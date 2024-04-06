@@ -3,7 +3,9 @@ import javascript from 'highlight.js/lib/languages/javascript';
 import { useEffect, useState } from 'react';
 import 'highlight.js/styles/vs2015.css';
 import { codeArea, editorContainer, textArea } from '@/style.css';
-Promise.resolve();
+import { parse } from '@/utils/parse';
+import { useFunction } from '@/hooks/useFunction';
+import { useCallStack } from '@/hooks/useCallStack';
 export const Code = () => {
   const [code] = useState(`
   function foo(){
@@ -24,7 +26,8 @@ export const Code = () => {
   
   `);
   const [hightLightedCode, setHighlightedCode] = useState('');
-
+  const { inqueueCompileQueue } = useCallStack();
+  const { addFunction } = useFunction();
   useEffect(() => {
     hljs.registerLanguage('javascript', javascript);
   }, []);
@@ -35,6 +38,21 @@ export const Code = () => {
         .highlight(code, { language: 'javascript' })
         .value.replace(/" "/g, '&nbsp; ')
     );
+
+    const { expression, functionDeclare } = parse(code);
+
+    expression.forEach((express) => {
+      const codeString = code.slice(express.start, express.end);
+      inqueueCompileQueue({
+        code: codeString,
+        expression: express,
+        executed: false,
+      });
+    });
+    functionDeclare.forEach((declare) => {
+      const codeString = code.slice(declare.start, declare.end);
+      addFunction(declare.id.name, codeString);
+    });
   }, [code]);
 
   return (
