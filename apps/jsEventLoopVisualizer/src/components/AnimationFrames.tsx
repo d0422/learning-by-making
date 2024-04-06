@@ -1,4 +1,3 @@
-import { useJobQueue } from '@/hooks/useJobQueue';
 import {
   animationFrames,
   centeredFlexBoxColumn,
@@ -6,16 +5,16 @@ import {
   leftTitle,
 } from '@/style.css';
 import { Task } from './Task';
+import { useAnimationFrames } from '@/hooks/useAnimationFrames';
 
 export const AnimationFrames = () => {
-  const animationFramesQueue = useJobQueue((state) => state.animationFrames);
-  const tasks = animationFramesQueue.getQueueList();
+  const tasks = useAnimationFrames((state) => state.animationFrames);
   return (
     <div className={centeredFlexBoxColumn}>
       <div className={leftTitle}>AnimationFrames</div>
       <div className={`${animationFrames} ${leftFlexBox}`}>
         {tasks.map((task) => (
-          <Task key={task} data={task} />
+          <Task key={task.code} data={task} />
         ))}
       </div>
     </div>

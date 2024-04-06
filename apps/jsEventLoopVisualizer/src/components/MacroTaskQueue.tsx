@@ -5,17 +5,16 @@ import {
   leftFlexBox,
 } from '@/style.css';
 import { Task } from './Task';
-import { useJobQueue } from '@/hooks/useJobQueue';
+import { useMacroQueue } from '@/hooks/useMacroQueue';
 
 export const MacroTaskQueue = () => {
-  const macroQueue = useJobQueue((state) => state.macroTask);
-  const tasks = macroQueue.getQueueList();
+  const tasks = useMacroQueue((state) => state.macroTask);
   return (
     <div className={centeredFlexBoxColumn}>
       <div className={leftTitle}>MacroTaskQueue</div>
       <div className={`${macroTaskQueue} ${leftFlexBox}`}>
         {tasks.map((task) => (
-          <Task key={task} data={task} />
+          <Task key={task.code} data={task} />
         ))}
       </div>
     </div>
