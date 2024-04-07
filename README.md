@@ -34,4 +34,4 @@ useState의 구현은 실제와 분명히 다르며, Fiber 아키텍쳐를 통�
 현재는 기본 코드 구성에 대한 시각화만 제공합니다.
 추후 사용자의 코드 수정시 파싱하여 사용자의 입력값에 대한 시각화를 제공할 예정입니다.
 
-![jsVisualizer](https://github.com/d0422/learning-by-making/assets/99241871/383519cc-4c0d-4d5b-bf7a-6815cbf0bcc9)
+![jsVisualizer](https://github.com/d0422/learning-by-making/assets/99241871/82dcacd4-ac0d-480b-8019-2a8c2778beca)
