@@ -4,11 +4,11 @@ import {
   Identifier,
   MemberExpression,
 } from 'acorn';
-import { useAnimationFrames } from './useAnimationFrames';
-import { useCallStack } from './useCallStack';
-import { useFunction } from './useFunction';
-import { useMacroQueue } from './useMacroQueue';
-import { useMicroQueue } from './useMicroQueue';
+import { useAnimationFrames } from '../stores/useAnimationFrames';
+import { useCallStack } from '../stores/useCallStack';
+import { useFunction } from '../stores/useFunction';
+import { useMacroQueue } from '../stores/useMacroQueue';
+import { useMicroQueue } from '../stores/useMicroQueue';
 import { parse } from '@/utils/parse';
 import { TaskType } from '@/type';
 
@@ -92,5 +92,5 @@ export const useProcessCode = () => {
       // return result;
     }
   };
-  return {processFunctionDeclaration, processCallExpression}
+  return { processFunctionDeclaration, processCallExpression };
 };

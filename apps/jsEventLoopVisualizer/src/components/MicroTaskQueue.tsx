@@ -5,7 +5,7 @@ import {
   leftFlexBox,
 } from '@/style.css';
 import { Task } from './Task';
-import { useMicroQueue } from '@/hooks/useMicroQueue';
+import { useMicroQueue } from '@/stores/useMicroQueue';
 
 export const MicroTaskQueue = () => {
   const tasks = useMicroQueue((state) => state.microTask);

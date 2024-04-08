@@ -1,6 +1,6 @@
 import { callStack, centeredFlexBoxColumn, titleText } from '@/style.css';
 import { Task } from './Task';
-import { useCallStack } from '@/hooks/useCallStack';
+import { useCallStack } from '@/stores/useCallStack';
 export const CallStack = () => {
   const callStacks = useCallStack((state) => state.callStack);
   return (

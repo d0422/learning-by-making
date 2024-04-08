@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { useCallStack } from './useCallStack';
-import { useMacroQueue } from './useMacroQueue';
-import { useMicroQueue } from './useMicroQueue';
-import { useAnimationFrames } from './useAnimationFrames';
+import { useCallStack } from '../stores/useCallStack';
+import { useMacroQueue } from '../stores/useMacroQueue';
+import { useMicroQueue } from '../stores/useMicroQueue';
+import { useAnimationFrames } from '../stores/useAnimationFrames';
 import { useProcessCode } from './useProcessCode';
 
 export const useSchedule = (second?: number) => {

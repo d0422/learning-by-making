@@ -5,7 +5,7 @@ import {
   leftFlexBox,
 } from '@/style.css';
 import { Task } from './Task';
-import { useMacroQueue } from '@/hooks/useMacroQueue';
+import { useMacroQueue } from '@/stores/useMacroQueue';
 
 export const MacroTaskQueue = () => {
   const tasks = useMacroQueue((state) => state.macroTask);

@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 import 'highlight.js/styles/vs2015.css';
 import { codeArea, editorContainer, textArea } from '@/style.css';
 import { parse } from '@/utils/parse';
-import { useFunction } from '@/hooks/useFunction';
-import { useCallStack } from '@/hooks/useCallStack';
+import { useFunction } from '@stores/useFunction';
+import { useCallStack } from '@stores/useCallStack';
+
 export const Code = () => {
   const [code] = useState(`
   function foo(){

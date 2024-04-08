@@ -5,7 +5,7 @@ import {
   leftTitle,
 } from '@/style.css';
 import { Task } from './Task';
-import { useAnimationFrames } from '@/hooks/useAnimationFrames';
+import { useAnimationFrames } from '@/stores/useAnimationFrames';
 
 export const AnimationFrames = () => {
   const tasks = useAnimationFrames((state) => state.animationFrames);
