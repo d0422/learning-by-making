@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
-import { useFunction } from './useFunction';
 import { useCallStack } from './useCallStack';
 import { useMacroQueue } from './useMacroQueue';
 import { useMicroQueue } from './useMicroQueue';
 import { useAnimationFrames } from './useAnimationFrames';
-import { Scheduler } from '@/utils/Schduler';
+import { useProcessCode } from './useProcessCode';
 
 export const useSchedule = (second?: number) => {
   const [isScheduling, setScheduling] = useState(false);
   const [timer, setTimer] = useState<NodeJS.Timeout>();
-  const { functions } = useFunction();
+  const { processCallExpression, processFunctionDeclaration } =
+    useProcessCode();
   const scheduleRef = useRef<() => void>();
   const {
     callStack,
@@ -17,12 +17,10 @@ export const useSchedule = (second?: number) => {
     dequeueCompileQueue,
     popCallStack,
     pushCallStack,
-    inqueueCompileQueue,
   } = useCallStack();
-  const { inqueueMacroTask, dequeueMacroTask, macroTask } = useMacroQueue();
-  const { inqueueMicroTask, dequeueMicroTask, microTask } = useMicroQueue();
-  const { animationFrames, inqueueAnimationFrames, dequeueAnimationFrames } =
-    useAnimationFrames();
+  const { dequeueMacroTask, macroTask } = useMacroQueue();
+  const { dequeueMicroTask, microTask } = useMicroQueue();
+  const { animationFrames, dequeueAnimationFrames } = useAnimationFrames();
 
   const isEnd = () => {
     const checkList = [
@@ -61,29 +59,19 @@ export const useSchedule = (second?: number) => {
     if (stackLength !== 0) {
       const currentTask = callStack[stackLength - 1]!;
       const { expression, executed } = currentTask;
-
       if (executed) {
+        //함수 정의가 쌓여있는 경우로, 함수 이름 위에서 실행문을 실행한다.
         if (compileQueue.length !== 0)
           return pushCallStack(dequeueCompileQueue());
         return popCallStack();
       }
       currentTask.executed = true;
 
-      const scheduler = new Scheduler(
-        currentTask,
-        inqueueMacroTask,
-        inqueueAnimationFrames,
-        inqueueMicroTask,
-        inqueueCompileQueue,
-        pushCallStack,
-        dequeueCompileQueue,
-        functions
-      );
-
       if (expression.type === 'FunctionDeclaration')
-        return scheduler.processFunctionDeclaration(expression);
+        //함수 정의가 stack에 쌓인 경우 함수정의를 pop하지 않고 위에 함수 실행문을 쌓는다.
+        return processFunctionDeclaration(expression);
       if (expression.type === 'CallExpression')
-        scheduler.processCallExpression(expression);
+        processCallExpression(expression);
 
       return popCallStack();
     }
