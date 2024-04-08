@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { useCallStack } from '../stores/useCallStack';
-import { useMacroQueue } from '../stores/useMacroQueue';
-import { useMicroQueue } from '../stores/useMicroQueue';
-import { useAnimationFrames } from '../stores/useAnimationFrames';
+import { useCallStack } from '@stores/useCallStack';
+import { useMacroQueue } from '@stores/useMacroQueue';
+import { useMicroQueue } from '@stores/useMicroQueue';
+import { useAnimationFrames } from '@stores/useAnimationFrames';
 import { useProcessCode } from './useProcessCode';
 
 export const useSchedule = (second?: number) => {
@@ -58,20 +58,19 @@ export const useSchedule = (second?: number) => {
     const stackLength = callStack.length;
     if (stackLength !== 0) {
       const currentTask = callStack[stackLength - 1]!;
-      const { expression, executed } = currentTask;
+      const { expression, executed, code } = currentTask;
       if (executed) {
-        //함수 정의가 쌓여있는 경우로, 함수 이름 위에서 실행문을 실행한다.
-        if (compileQueue.length !== 0)
+        //함수 정의가 쌓여있는 경우로, 함수 이름 위에서 실행문을 실행한다
+        if (compileQueue.length !== 0 && compileQueue[0]?.calleeName === code)
           return pushCallStack(dequeueCompileQueue());
         return popCallStack();
       }
       currentTask.executed = true;
-
       if (expression.type === 'FunctionDeclaration')
         //함수 정의가 stack에 쌓인 경우 함수정의를 pop하지 않고 위에 함수 실행문을 쌓는다.
         return processFunctionDeclaration(expression);
       if (expression.type === 'CallExpression')
-        processCallExpression(expression);
+        processCallExpression(expression, currentTask.calleeName);
 
       return popCallStack();
     }
