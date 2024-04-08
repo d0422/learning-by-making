@@ -7,7 +7,7 @@ export const Button = ({
 }: {
   name: string;
   onClick: () => void;
-  isActive: boolean;
+  isActive?: boolean;
 }) => {
   return (
     <button className={isActive ? activeButton : button} onClick={onClick}>

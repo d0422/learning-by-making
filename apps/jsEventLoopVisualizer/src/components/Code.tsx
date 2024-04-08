@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import 'highlight.js/styles/vs2015.css';
 import {
   centeredFlexBoxColumn,
@@ -7,16 +6,12 @@ import {
   textArea,
 } from '@/style.css';
 import { useCode } from '@/stores/useCode';
-import { useProcessCode } from '@/hooks/useProcessCode';
 import { useHighlightCode } from '@/hooks/useHightlightCode';
 import { ControllButtons } from './ControllButtons';
 
 export const Code = () => {
   const { code } = useCode();
-  const { parseUserCode } = useProcessCode();
   const hightLightedCode = useHighlightCode();
-
-  useEffect(() => parseUserCode(code), [code]);
 
   return (
     <div
