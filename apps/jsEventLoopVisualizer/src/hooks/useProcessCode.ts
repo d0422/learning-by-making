@@ -33,6 +33,7 @@ export const useProcessCode = () => {
   const { functions, addFunction } = useFunction();
 
   const parseUserCode = (code: string) => {
+    //최초 파싱부
     const { expression, functionDeclare } = parse(code);
     expression.forEach((express) => {
       const codeString = code.slice(express.start, express.end);
@@ -81,6 +82,8 @@ export const useProcessCode = () => {
     expression: CalleeIdentifier,
     callee?: string
   ) => {
+    // 사용자 정의 함수인 경우 해당 함수의 정의를 compileQueue에 더한다.
+    // 이때 중첩적으로 함수 context가 더해질 수 있으므로 callee를 저장한다.
     const functionBody = functions[expression.callee.name];
     if (functionBody) {
       const { functionDeclare } = parse(functionBody);
