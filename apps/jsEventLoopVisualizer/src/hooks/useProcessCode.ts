@@ -1,5 +1,6 @@
 import {
   CallExpression,
+  ExpressionStatement,
   FunctionDeclaration,
   Identifier,
   MemberExpression,
@@ -20,8 +21,12 @@ interface CalleeMember extends CallExpression {
   callee: MemberExpression;
 }
 export const useProcessCode = () => {
-  const { dequeueCompileQueue, pushCallStack, inqueueCompileQueue } =
-    useCallStack();
+  const {
+    dequeueCompileQueue,
+    pushCallStack,
+    inqueueCompileQueue,
+    insertCompileQueueHead,
+  } = useCallStack();
   const { inqueueMacroTask } = useMacroQueue();
   const { inqueueMicroTask } = useMicroQueue();
   const { inqueueAnimationFrames } = useAnimationFrames();
@@ -29,7 +34,6 @@ export const useProcessCode = () => {
 
   const parseUserCode = (code: string) => {
     const { expression, functionDeclare } = parse(code);
-
     expression.forEach((express) => {
       const codeString = code.slice(express.start, express.end);
       inqueueCompileQueue({
@@ -47,25 +51,46 @@ export const useProcessCode = () => {
   const processFunctionDeclaration = (expression: FunctionDeclaration) => {
     const functionBody = expression.body.body;
     const realCode = functions[expression.id.name]!;
-    const expressions = functionBody
-      .filter((data) => data.type === 'ExpressionStatement')
-      .map((express) => ({
+    const expressStatements = functionBody.filter(
+      (data) => data.type === 'ExpressionStatement'
+    ) as ExpressionStatement[];
+    const expressions = expressStatements.map(
+      (express: ExpressionStatement) => ({
         code: realCode.slice(express.start, express.end),
-        expression: express as any,
+        expression: express.expression,
         executed: false,
-      }));
-    inqueueCompileQueue(expressions);
+        calleeName: expression.id.name,
+      })
+    );
+
+    insertCompileQueueHead(expressions);
     return pushCallStack(dequeueCompileQueue());
   };
 
-  const processCallExpression = (expression: CallExpression) => {
+  const processCallExpression = (
+    expression: CallExpression,
+    callee?: string
+  ) => {
     if (expression.callee.type === 'Identifier')
-      processCalleeIdentifier(expression as CalleeIdentifier);
+      processCalleeIdentifier(expression as CalleeIdentifier, callee);
     if (expression.callee.type === 'MemberExpression')
       processCalleeMemberExpression(expression as CalleeMember);
   };
 
-  const processCalleeIdentifier = (expression: CalleeIdentifier) => {
+  const processCalleeIdentifier = (
+    expression: CalleeIdentifier,
+    callee?: string
+  ) => {
+    const functionBody = functions[expression.callee.name];
+    if (functionBody) {
+      const { functionDeclare } = parse(functionBody);
+      return insertCompileQueueHead({
+        code: expression.callee.name,
+        expression: functionDeclare[0]!,
+        executed: false,
+        calleeName: callee,
+      });
+    }
     const callbackTask = getCallbackTask(expression);
     if (expression.callee.type === 'Identifier' && callbackTask) {
       if (expression.callee.name === 'setTimeout')
@@ -109,5 +134,9 @@ export const useProcessCode = () => {
       // return result;
     }
   };
-  return { processFunctionDeclaration, processCallExpression, parseUserCode };
+  return {
+    processFunctionDeclaration,
+    processCallExpression,
+    parseUserCode,
+  };
 };
