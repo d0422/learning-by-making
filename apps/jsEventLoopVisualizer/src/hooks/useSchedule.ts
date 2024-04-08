@@ -33,7 +33,6 @@ export const useSchedule = (second?: number) => {
     if (checkList.some((each) => each.length !== 0)) return false;
     return true;
   };
-
   useEffect(() => {
     scheduleRef.current = () => {
       if (isEnd()) {
@@ -90,6 +89,7 @@ export const useSchedule = (second?: number) => {
 
   const stopSchedule = () => {
     if (timer) clearInterval(timer);
+    setScheduling(false);
   };
 
   return { startSchedule, stopSchedule, isScheduling, schedule };

@@ -1,9 +1,11 @@
 import { style, globalStyle, keyframes } from '@vanilla-extract/css';
+
 export const leftFlexBox = style({
   display: 'flex',
   justifyContent: 'flex-start',
   alignItems: 'center',
   gap: 5,
+  width: '100%',
 });
 
 export const centeredFlexBox = style({
@@ -148,3 +150,27 @@ export const textArea = style([
 ]);
 
 export const codeArea = style([codeDefaultStyle]);
+
+export const button = style({
+  background: 'none',
+  border: 'none',
+  color: 'white',
+  padding: 15,
+  borderWidth: 1,
+  borderColor: 'white',
+  borderStyle: 'solid',
+  cursor: 'pointer',
+  ':hover': {
+    backgroundColor: 'gray',
+  },
+});
+export const activeButton = style({
+  background: 'gray',
+  border: 'none',
+  color: 'white',
+  padding: 15,
+  borderWidth: 1,
+  borderColor: 'white',
+  borderStyle: 'solid',
+  cursor: 'pointer',
+});

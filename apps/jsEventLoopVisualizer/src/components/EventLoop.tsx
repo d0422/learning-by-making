@@ -1,13 +1,9 @@
 import { EventLoopSVG } from '@assets/EventloopSVG';
 import { centeredFlexBoxColumn, infiniteRotate, text } from '@/style.css';
 import { useSchedule } from '@/hooks/useSchedule';
-import { useEffect } from 'react';
 
 export const EventLoop = () => {
-  const { startSchedule, isScheduling } = useSchedule();
-  useEffect(() => {
-    startSchedule();
-  }, []);
+  const { isScheduling } = useSchedule();
   return (
     <div className={`${centeredFlexBoxColumn}`}>
       <EventLoopSVG
