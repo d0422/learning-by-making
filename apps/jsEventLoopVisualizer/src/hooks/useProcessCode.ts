@@ -25,7 +25,24 @@ export const useProcessCode = () => {
   const { inqueueMacroTask } = useMacroQueue();
   const { inqueueMicroTask } = useMicroQueue();
   const { inqueueAnimationFrames } = useAnimationFrames();
-  const { functions } = useFunction();
+  const { functions, addFunction } = useFunction();
+
+  const parseUserCode = (code: string) => {
+    const { expression, functionDeclare } = parse(code);
+
+    expression.forEach((express) => {
+      const codeString = code.slice(express.start, express.end);
+      inqueueCompileQueue({
+        code: codeString,
+        expression: express,
+        executed: false,
+      });
+    });
+    functionDeclare.forEach((declare) => {
+      const codeString = code.slice(declare.start, declare.end);
+      addFunction(declare.id.name, codeString);
+    });
+  };
 
   const processFunctionDeclaration = (expression: FunctionDeclaration) => {
     const functionBody = expression.body.body;
@@ -92,5 +109,5 @@ export const useProcessCode = () => {
       // return result;
     }
   };
-  return { processFunctionDeclaration, processCallExpression };
+  return { processFunctionDeclaration, processCallExpression, parseUserCode };
 };
