@@ -6,19 +6,23 @@ import { useCode } from '@/stores/useCode';
 import { useProcessCode } from '@/hooks/useProcessCode';
 
 export const ControllButtons = () => {
-  const { startSchedule, stopSchedule, isScheduling } = useSchedule();
+  const { startSchedule, stopSchedule, isScheduling, reset } = useSchedule();
   const [active, setActive] = useState<'RUN' | 'STOP'>();
   const [initialize, setInitialize] = useState(true);
   const { code } = useCode();
   const { parseUserCode } = useProcessCode();
 
   const initializer = () => {
-    if (initialize) {
-      parseUserCode(code);
-      run();
-      setActive('RUN');
-      setInitialize(false);
+    if (!initialize) {
+      reset();
+      setInitialize(true);
+      setActive('STOP');
+      return;
     }
+    parseUserCode(code);
+    run();
+    setActive('RUN');
+    setInitialize(false);
   };
 
   const run = () => {
@@ -35,8 +39,12 @@ export const ControllButtons = () => {
   return (
     <div className={leftFlexBox}>
       <Button name={initialize ? 'START' : 'RESET'} onClick={initializer} />
-      <Button name="RUN" onClick={run} isActive={active === 'RUN'} />
-      <Button name="STOP" onClick={stop} isActive={active === 'STOP'} />
+      {!initialize && (
+        <>
+          <Button name="RUN" onClick={run} isActive={active === 'RUN'} />
+          <Button name="STOP" onClick={stop} isActive={active === 'STOP'} />
+        </>
+      )}
     </div>
   );
 };

@@ -5,6 +5,7 @@ interface MicroQueue {
   microTask: TaskType[];
   inqueueMicroTask: (value: TaskType) => void;
   dequeueMicroTask: () => TaskType;
+  reset: () => void;
 }
 
 export const useMicroQueue = create<MicroQueue>((set) => ({
@@ -25,5 +26,11 @@ export const useMicroQueue = create<MicroQueue>((set) => ({
       };
     });
     return task!;
+  },
+  reset: () => {
+    set((state) => ({
+      ...state,
+      microTask: [],
+    }));
   },
 }));

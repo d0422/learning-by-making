@@ -5,6 +5,7 @@ interface MacroQueue {
   macroTask: TaskType[];
   inqueueMacroTask: (value: TaskType) => void;
   dequeueMacroTask: () => TaskType;
+  reset: () => void;
 }
 
 export const useMacroQueue = create<MacroQueue>((set) => ({
@@ -25,5 +26,8 @@ export const useMacroQueue = create<MacroQueue>((set) => ({
       };
     });
     return task!;
+  },
+  reset: () => {
+    set((state) => ({ ...state, macroTask: [] }));
   },
 }));

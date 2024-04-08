@@ -5,6 +5,7 @@ interface AnimationFrames {
   animationFrames: TaskType[];
   inqueueAnimationFrames: (value: TaskType) => void;
   dequeueAnimationFrames: () => TaskType;
+  reset: () => void;
 }
 
 export const useAnimationFrames = create<AnimationFrames>((set) => ({
@@ -25,5 +26,11 @@ export const useAnimationFrames = create<AnimationFrames>((set) => ({
       };
     });
     return task!;
+  },
+  reset: () => {
+    set((state) => ({
+      ...state,
+      animationFrames: [],
+    }));
   },
 }));

@@ -17,10 +17,15 @@ export const useSchedule = (second?: number) => {
     dequeueCompileQueue,
     popCallStack,
     pushCallStack,
+    reset: resetCallStackAndJobs,
   } = useCallStack();
-  const { dequeueMacroTask, macroTask } = useMacroQueue();
-  const { dequeueMicroTask, microTask } = useMicroQueue();
-  const { animationFrames, dequeueAnimationFrames } = useAnimationFrames();
+  const { dequeueMacroTask, macroTask, reset: resetMacro } = useMacroQueue();
+  const { dequeueMicroTask, microTask, reset: resetMicro } = useMicroQueue();
+  const {
+    animationFrames,
+    dequeueAnimationFrames,
+    reset: resetAnimationFrames,
+  } = useAnimationFrames();
 
   const isEnd = () => {
     const checkList = [
@@ -92,5 +97,12 @@ export const useSchedule = (second?: number) => {
     setScheduling(false);
   };
 
-  return { startSchedule, stopSchedule, isScheduling, schedule };
+  const reset = () => {
+    resetCallStackAndJobs();
+    resetAnimationFrames();
+    resetMacro();
+    resetMicro();
+  };
+
+  return { startSchedule, stopSchedule, isScheduling, schedule, reset };
 };

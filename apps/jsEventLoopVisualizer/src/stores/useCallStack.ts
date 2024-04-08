@@ -9,6 +9,7 @@ interface CallStack {
   inqueueCompileQueue: (value: TaskType | TaskType[]) => void;
   dequeueCompileQueue: () => TaskType;
   insertCompileQueueHead: (value: TaskType | TaskType[]) => void;
+  reset: () => void;
 }
 
 export const useCallStack = create<CallStack>((set) => ({
@@ -74,5 +75,12 @@ export const useCallStack = create<CallStack>((set) => ({
       };
     });
     return task!;
+  },
+  reset: () => {
+    set((state) => ({
+      ...state,
+      callStack: [],
+      compileQueue: [],
+    }));
   },
 }));
