@@ -1,13 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useCallStack } from '@stores/useCallStack';
 import { useMacroQueue } from '@stores/useMacroQueue';
 import { useMicroQueue } from '@stores/useMicroQueue';
 import { useAnimationFrames } from '@stores/useAnimationFrames';
 import { useProcessCode } from './useProcessCode';
+import { useScheduleInfo } from '@/stores/useSchduleInfo';
 
 export const useSchedule = (second?: number) => {
-  const [isScheduling, setScheduling] = useState(false);
-  const [timer, setTimer] = useState<NodeJS.Timeout>();
+  const { timer, isScheduling, setIsSchduling, setTimer } = useScheduleInfo();
   const { processCallExpression, processFunctionDeclaration } =
     useProcessCode();
   const scheduleRef = useRef<() => void>();
@@ -38,10 +38,11 @@ export const useSchedule = (second?: number) => {
     if (checkList.some((each) => each.length !== 0)) return false;
     return true;
   };
+
   useEffect(() => {
     scheduleRef.current = () => {
       if (isEnd()) {
-        setScheduling(false);
+        setIsSchduling(false);
         clearInterval(timer);
         return;
       }
@@ -89,12 +90,12 @@ export const useSchedule = (second?: number) => {
   };
 
   const startSchedule = () => {
-    setScheduling(true);
+    setIsSchduling(true);
   };
 
   const stopSchedule = () => {
     if (timer) clearInterval(timer);
-    setScheduling(false);
+    setIsSchduling(false);
   };
 
   const reset = () => {
