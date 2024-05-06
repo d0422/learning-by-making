@@ -5,6 +5,7 @@ import { useMicroQueue } from '@stores/useMicroQueue';
 import { useAnimationFrames } from '@stores/useAnimationFrames';
 import { useProcessCode } from './useProcessCode';
 import { useScheduleInfo } from '@/stores/useSchduleInfo';
+import { useCompileQueue } from '@/stores/useCompileDeque';
 
 export const useSchedule = (second?: number) => {
   const { timer, isScheduling, setIsSchduling, setTimer } = useScheduleInfo();
@@ -12,9 +13,13 @@ export const useSchedule = (second?: number) => {
     useProcessCode();
   const scheduleRef = useRef<() => void>();
   const {
-    callStack,
     compileQueue,
     dequeueCompileQueue,
+    reset: resetCompileQueue,
+  } = useCompileQueue();
+  const {
+    callStack,
+
     popCallStack,
     pushCallStack,
     reset: resetCallStackAndJobs,
@@ -103,6 +108,7 @@ export const useSchedule = (second?: number) => {
     resetAnimationFrames();
     resetMacro();
     resetMicro();
+    resetCompileQueue();
   };
 
   return { startSchedule, stopSchedule, isScheduling, schedule, reset };

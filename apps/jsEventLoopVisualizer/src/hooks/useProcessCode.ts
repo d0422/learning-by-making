@@ -12,6 +12,7 @@ import { useMacroQueue } from '../stores/useMacroQueue';
 import { useMicroQueue } from '../stores/useMicroQueue';
 import { parse } from '@/utils/parse';
 import { TaskType } from '@/type';
+import { useCompileQueue } from '@/stores/useCompileDeque';
 
 interface CalleeIdentifier extends CallExpression {
   callee: Identifier;
@@ -21,12 +22,9 @@ interface CalleeMember extends CallExpression {
   callee: MemberExpression;
 }
 export const useProcessCode = () => {
-  const {
-    dequeueCompileQueue,
-    pushCallStack,
-    inqueueCompileQueue,
-    insertCompileQueueHead,
-  } = useCallStack();
+  const { dequeueCompileQueue, inqueueCompileQueue, insertCompileQueueHead } =
+    useCompileQueue();
+  const { pushCallStack } = useCallStack();
   const { inqueueMacroTask } = useMacroQueue();
   const { inqueueMicroTask } = useMicroQueue();
   const { inqueueAnimationFrames } = useAnimationFrames();
