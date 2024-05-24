@@ -1,12 +1,13 @@
 import express from 'express';
 import App from './components/App';
+import { createHTML } from '@core/createHTML';
 
 const app = express();
 const port = 3000;
 
 app.get('/', (req, res) => {
-  console.log(<App />);
-  res.send('Server On');
+  const html = createHTML(<App />);
+  res.send(html);
 });
 
 app.listen(port, () => {
