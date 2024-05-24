@@ -1,0 +1,37 @@
+{
+  "name": "mininext",
+  "private": true,
+  "version": "0.0.0",
+  "description": "miniNext",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon",
+    "build": "babel src --extensions .ts,.tsx --out-dir dist"
+  },
+  "keywords": [
+    "next"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.24.5",
+    "@babel/core": "^7.24.5",
+    "@babel/node": "^7.23.9",
+    "@babel/plugin-transform-react-jsx": "^7.23.4",
+    "@babel/preset-env": "^7.24.5",
+    "@babel/preset-typescript": "^7.24.1",
+    "@types/node": "^20.11.30",
+    "babel-node": "0.0.1-security",
+    "babel-plugin-module-resolver": "^5.0.2", 
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "exports": {
+    "core/jsx-runtime": "./dist/core/jsx-runtime.js"
+  }
+}

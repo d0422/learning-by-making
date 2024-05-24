@@ -1,0 +1,5 @@
+{
+  "watch": ["src"],
+  "ext": "ts",
+  "exec": "babel src --extensions .ts,.tsx --out-dir dist && node dist/app.js"
+}
