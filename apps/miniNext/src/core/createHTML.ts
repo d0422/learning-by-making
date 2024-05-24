@@ -1,6 +1,11 @@
 import { MiniReactNode } from './jsx-runtime';
 
-export const createHTML = (element: string | MiniReactNode) => {
+export const createHTML = (element: MiniReactNode) => {
+  const root = `<div id="_miniNext">${_createHTML(element)}</div>`;
+  return root;
+};
+
+const _createHTML = (element: string | MiniReactNode) => {
   if (typeof element === 'string' || typeof element === 'number') {
     //element가 text거나 number인 경우 textNode로 만든다.
     return element;
