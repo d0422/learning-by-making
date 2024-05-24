@@ -7,7 +7,7 @@ export const createHTML = (element: MiniReactNode) => {
 
 const _createHTML = (element: string | MiniReactNode) => {
   if (typeof element === 'string' || typeof element === 'number') {
-    //element가 text거나 number인 경우 textNode로 만든다.
+    //element가 text거나 number인 경우 그냥 내보낸다.
     return element;
   }
 
@@ -15,7 +15,7 @@ const _createHTML = (element: string | MiniReactNode) => {
   let HTMLString = `<${element.tagName} `;
   let styleProps = ``;
   if (element.props) {
-    //props를 HTML String에 붙인다.
+    //props를 HTML attribute로 붙인다.
     Object.keys(element.props).forEach((key) => {
       if (key === 'style') {
         const styleObject = element.props[key];
@@ -31,11 +31,11 @@ const _createHTML = (element: string | MiniReactNode) => {
   HTMLString = HTMLString.trimEnd();
   HTMLString += '>';
   if (element.props.children) {
-    //children에 대해 재귀적으로 DOM요소를 만들어 현재 요소에 붙인다.
+    //children에 대해 재귀적으로 HTML을 생성해 붙인다.
     element.props.children.forEach((child) => {
       HTMLString += createHTML(child);
     });
   }
   HTMLString += `</${element.tagName}>`;
-  return HTMLString; //최종 생성된 DOM요소를 반환한다.;
+  return HTMLString; //최종 생성된 HTML을 반환한다.
 };
