@@ -1,7 +1,16 @@
 import { MiniReactNode } from './jsx-runtime';
 
 export const createHTML = (element: MiniReactNode) => {
-  const root = `<div id="_miniNext">${_createHTML(element)}</div>`;
+  const root = `
+  <html>
+  <head>
+    <title>MiniNext</title>
+  </head>
+  <body>
+  <div id="_miniNext">${_createHTML(element)}</div>
+  </body>
+  <script src='index.js' type="module"></script>
+  </html>`;
   return root;
 };
 
