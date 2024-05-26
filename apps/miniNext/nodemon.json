@@ -1,5 +1,5 @@
 {
   "watch": ["src"],
   "ext": "ts",
-  "exec": "babel src --extensions .ts,.tsx --out-dir dist && node dist/app.js"
+  "exec": "babel src --extensions .ts,.tsx --out-dir dist && rollup --config rollup.config.js && node dist/app.js"
 }
