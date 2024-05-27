@@ -1,6 +1,9 @@
 import { MiniReactNode } from './jsx-runtime';
 
-export const createHTML = (element: MiniReactNode) => {
+export const createHTML = (
+  element: MiniReactNode,
+  initialServerProps?: Record<string, string>
+) => {
   const root = `
   <html>
   <head>
@@ -9,6 +12,9 @@ export const createHTML = (element: MiniReactNode) => {
   <body>
   <div id="_miniNext">${_createHTML(element)}</div>
   </body>
+  <script>
+    window._miniNextData=${JSON.stringify(initialServerProps)}
+  </script>
   <script src='index.js' type="module"></script>
   </html>`;
   return root;

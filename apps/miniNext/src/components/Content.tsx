@@ -1,16 +1,7 @@
-import { useEffect } from '@core/useEffect';
 import { useState } from '@core/useState';
 
-export default function Content() {
-  const [number, setNumber] = useState<number>(1);
-
-  useEffect(() => {
-    fetch('/number').then((res) => {
-      res.json().then(({ number }) => {
-        setNumber(number);
-      });
-    });
-  }, []);
+export default function Content({ serverNumber }: { serverNumber?: number }) {
+  const [number, setNumber] = useState<number>(serverNumber || 0);
 
   return (
     <div
