@@ -1,4 +1,4 @@
-import { makeDOM } from '../src/core/createDOM';
 import App from '../src/components/App';
+import { hydrate } from '@core/render';
 
-console.log(makeDOM(<App />));
+hydrate(<App />, document.getElementById('_miniNext'));
