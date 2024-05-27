@@ -33,8 +33,5 @@
     "rollup": "^4.18.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
-  },
-  "exports": {
-    "core/jsx-runtime": "./dist/core/jsx-runtime.js"
   }
 }
