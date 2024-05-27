@@ -25,5 +25,6 @@ export const makeDOM = (element: string | MiniReactNode) => {
       DOMElement.appendChild(makeDOM(child));
     });
   }
+  element.ref = DOMElement;
   return DOMElement; //최종 생성된 DOM요소를 반환한다.;
 };

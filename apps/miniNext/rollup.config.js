@@ -2,7 +2,7 @@ const babel = require('@rollup/plugin-babel');
 const resolve = require('@rollup/plugin-node-resolve');
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 const path = require('path');
-console.log('path확인:', path.resolve('jsx-runtime.js'));
+
 module.exports = [
   {
     input: './public/index.tsx',
@@ -23,10 +23,8 @@ module.exports = [
             'module-resolver',
             {
               alias: {
-                '@core/jsx-runtime': path.resolve(
-                  __dirname,
-                  'src/core/jsx-runtime'
-                ),
+                '@core': path.resolve(__dirname, 'src/core'),
+                '@/utils': path.resolve(__dirname, 'src/utils'),
               },
             },
           ],
