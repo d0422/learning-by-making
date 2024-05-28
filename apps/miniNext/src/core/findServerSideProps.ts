@@ -3,13 +3,10 @@ import path from 'path';
 
 const PAGES_PATH = 'dist/pages';
 
-interface ServerSidePage {
-  pageName: string;
-  serverSideFunction: Function;
-}
+type ServerSideFunction = Record<string, Function>;
 
 export const getServerSidePropsFunction = async () => {
-  const result: ServerSidePage[] = [];
+  const result: ServerSideFunction = {};
   const files: string[] = await new Promise((resolve, reject) => {
     readdir(PAGES_PATH, (err, files) => {
       if (err) reject();
@@ -21,10 +18,7 @@ export const getServerSidePropsFunction = async () => {
     const { getServerSideProps } = require(
       path.resolve(`${PAGES_PATH}/${file}`)
     );
-    result.push({
-      pageName: file,
-      serverSideFunction: getServerSideProps,
-    });
+    result[file] = getServerSideProps;
   });
   return result;
 };
