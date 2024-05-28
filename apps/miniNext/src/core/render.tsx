@@ -1,4 +1,4 @@
-import App from '../pages/App';
+import App from '../pages';
 import { makeDOM } from './createDOM';
 import { updateDOM } from './updateDOM';
 import { initializeIndex } from './useState';
