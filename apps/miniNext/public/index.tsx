@@ -1,4 +1,4 @@
-import App from '../src/pages';
+import * as Page from '@/pages/index';
 import { hydrate } from '@core/render';
 
-hydrate(App, document.getElementById('_miniNext'));
+hydrate(Page.default, document.getElementById('_miniNext'));
