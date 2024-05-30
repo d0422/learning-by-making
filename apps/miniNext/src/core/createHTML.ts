@@ -2,7 +2,8 @@ import { MiniReactNode } from './jsx-runtime';
 
 export const createHTML = (
   element: MiniReactNode,
-  initialServerProps?: Record<string, string>
+  initialServerProps?: Record<string, string>,
+  fileName?: string
 ) => {
   const root = `
   <html>
@@ -15,7 +16,7 @@ export const createHTML = (
   <script>
     window._miniNextData=${JSON.stringify(initialServerProps)}
   </script>
-  <script src='index.js' type="module"></script>
+  <script src='${fileName}.js'></script>
   </html>`;
   return root;
 };
@@ -48,7 +49,7 @@ const _createHTML = (element: string | MiniReactNode) => {
   if (element.props.children) {
     //children에 대해 재귀적으로 HTML을 생성해 붙인다.
     element.props.children.forEach((child) => {
-      HTMLString += createHTML(child);
+      HTMLString += _createHTML(child);
     });
   }
   HTMLString += `</${element.tagName}>`;

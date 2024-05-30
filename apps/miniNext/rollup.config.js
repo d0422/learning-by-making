@@ -3,11 +3,16 @@ const resolve = require('@rollup/plugin-node-resolve');
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 const path = require('path');
 
-module.exports = [
-  {
-    input: './public/index.tsx',
+const fs = require('fs');
+
+const files = fs.readdirSync('public');
+
+const createConfigFile = (fullFileName) => {
+  const [fileName] = fullFileName.split('.tsx');
+  return {
+    input: `./public/${fullFileName}`,
     output: {
-      file: './dist/public/index.js',
+      file: `./dist/public/${fileName}.js`,
       format: 'es',
     },
     plugins: [
@@ -25,6 +30,7 @@ module.exports = [
               alias: {
                 '@core': path.resolve(__dirname, 'src/core'),
                 '@/utils': path.resolve(__dirname, 'src/utils'),
+                '@/pages': path.resolve(__dirname, 'src/pages'),
               },
             },
           ],
@@ -35,5 +41,7 @@ module.exports = [
         extensions,
       }),
     ],
-  },
-];
+  };
+};
+
+module.exports = files.map((fullFilename) => createConfigFile(fullFilename));

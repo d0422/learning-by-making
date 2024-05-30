@@ -5,9 +5,9 @@ import { Express, Request, Response } from 'express';
 import { getServerSidePropsFunction } from './findServerSideProps';
 import { createHTML } from './createHTML';
 
-const findPagesFiles = async () => {
+export const findPagesFiles = async (pagesPath = PAGES_PATH) => {
   const files: string[] = await new Promise((resolve, reject) => {
-    readdir(PAGES_PATH, (err, files) => {
+    readdir(pagesPath, (err, files) => {
       if (err) reject();
       resolve(files);
     });
@@ -37,7 +37,8 @@ export const routeMapper = async (app: Express) => {
         );
         const html = createHTML(
           <Component {...serverSideProps} />,
-          serverSideProps
+          serverSideProps,
+          fileName
         );
         res.send(html);
       }
