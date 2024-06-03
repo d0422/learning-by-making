@@ -25,5 +25,5 @@ export const _getPagesFiles = async (pagesPath = PAGES_PATH) => {
 };
 
 export const getPagesFiles = async () => {
-  return (await _getPagesFiles()).map((file) => file.split(PAGES_PATH)[1]);
+  return await _getPagesFiles();
 };
