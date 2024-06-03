@@ -5,8 +5,11 @@ const path = require('path');
 
 const fs = require('fs');
 
-const files = fs.readdirSync('public');
+const files = fs
+  .readdirSync('public', { recursive: true })
+  .filter((fileName) => fileName.match(/.tsx/));
 
+console.log(files);
 const createConfigFile = (fullFileName) => {
   const [fileName] = fullFileName.split('.tsx');
   return {
