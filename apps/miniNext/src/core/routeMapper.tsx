@@ -2,7 +2,7 @@ const PAGES_PATH = 'dist/pages';
 import { readdir } from 'fs';
 import path from 'path';
 import { Express, Request, Response } from 'express';
-import { getServerSidePropsFunction } from './findServerSideProps';
+import { getServerSidePropsFunction } from './getServerSidePropsFunction';
 import { createHTML } from './createHTML';
 import { getPagesFiles } from './getPagesFiles';
 
