@@ -6,16 +6,6 @@ import { getServerSidePropsFunction } from './getServerSidePropsFunction';
 import { createHTML } from './createHTML';
 import { getPagesFiles } from './getPagesFiles';
 
-export const findPagesFiles = async (pagesPath = PAGES_PATH) => {
-  const files: string[] = await new Promise((resolve, reject) => {
-    readdir(pagesPath, (err, files) => {
-      if (err) reject();
-      resolve(files);
-    });
-  });
-  return files;
-};
-
 const getRoutingPath = (fileName: string) => {
   if (fileName === 'index') return '/';
   if (fileName.match('index')) return `/${fileName.replace('index', '')}`;
