@@ -14,6 +14,7 @@ const getRoutingPath = (fileName: string) => {
 
 export const routeMapper = async (app: Express) => {
   const files = await getPagesFiles();
+
   files.forEach((fullFileName) => {
     const fileName = fullFileName
       .replace(/dist\/pages\//, '')

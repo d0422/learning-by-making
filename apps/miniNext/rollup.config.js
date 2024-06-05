@@ -9,7 +9,6 @@ const files = fs
   .readdirSync('public', { recursive: true })
   .filter((fileName) => fileName.match(/.tsx/));
 
-console.log(files);
 const createConfigFile = (fullFileName) => {
   const [fileName] = fullFileName.split('.tsx');
   return {

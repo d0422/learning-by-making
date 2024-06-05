@@ -1,9 +1,9 @@
 import { existsSync, mkdirSync, writeFile } from 'fs';
 import path from 'path';
-import { _getPagesFiles } from './getPagesFiles';
+import { getPagesFiles } from './getPagesFiles';
 
 export const createClientFiles = async () => {
-  const files = await _getPagesFiles('src/pages');
+  const files = await getPagesFiles('src/pages');
   if (!existsSync(path.resolve(__dirname, `../../public`))) {
     mkdirSync(path.resolve(__dirname, `../../public`));
   }
