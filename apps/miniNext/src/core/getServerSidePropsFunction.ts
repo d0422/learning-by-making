@@ -8,7 +8,9 @@ export const getServerSidePropsFunction = async () => {
 
   const files = await getPagesFiles();
   files.map((file) => {
-    const { getServerSideProps } = require(path.resolve(file));
+    const { getServerSideProps } = require(
+      path.resolve(__dirname, '../pages', file)
+    );
     result[file] = getServerSideProps;
   });
   return result;

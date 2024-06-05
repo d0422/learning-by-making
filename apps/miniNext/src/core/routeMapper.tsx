@@ -26,7 +26,9 @@ export const routeMapper = async (app: Express) => {
         const serverSideFunctions = await getServerSidePropsFunction();
         const serverSideFunction = serverSideFunctions[fullFileName];
         const serverSideProps = serverSideFunction?.().props;
-        const { default: Component } = require(path.resolve(fullFileName));
+        const { default: Component } = require(
+          path.resolve(__dirname, '../pages', fullFileName)
+        );
         const html = createHTML(
           <Component {...serverSideProps} />,
           serverSideProps,

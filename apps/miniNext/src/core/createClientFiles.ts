@@ -4,9 +4,6 @@ import { getPagesFiles } from './getPagesFiles';
 
 export const createClientFiles = async () => {
   const files = await getPagesFiles('src/pages');
-  if (!existsSync(path.resolve(__dirname, `../../public`))) {
-    mkdirSync(path.resolve(__dirname, `../../public`));
-  }
 
   files.forEach((fullFileName) => {
     const fileName = fullFileName
