@@ -7,8 +7,8 @@
 # 📄목차
 
 1. [Mini React](https://github.com/d0422/learning-by-making/tree/main/apps/miniReact)
-2. JS Eventloop visualizer
-3. Mini Next
+2. [JS Eventloop visualizer](https://github.com/d0422/learning-by-making/tree/main/apps/jsEventLoopVisualizer)
+3. [Mini Next](https://github.com/d0422/learning-by-making/tree/main/apps/miniNext)
 
 ## Mini React
 
@@ -35,3 +35,15 @@ useState의 구현은 실제와 분명히 다르며, Fiber 아키텍쳐를 통�
 추후 사용자의 코드 수정시 파싱하여 사용자의 입력값에 대한 시각화를 제공할 예정입니다.
 
 ![jsVisualizer](https://github.com/d0422/learning-by-making/assets/99241871/82dcacd4-ac0d-480b-8019-2a8c2778beca)
+
+## MiniNext
+
+Next 12버전**처럼** 동작하는 MiniNext입니다.
+express, rollup, babel을 활용하여 JSX기반의 SSR을 구현합니다.
+
+1. getServerSideProps를 지원합니다.
+2. pages기반의 중첩라우팅을 지원합니다.
+
+![miniNext](https://blog.kakaocdn.net/dn/cxcCOq/btsHE0KWKRQ/7FOAMc1IqUCSMMvh6RCpv0/img.gif)
+
+![nestedRoute-ezgif com-video-to-gif-converter](https://github.com/d0422/learning-by-making/assets/99241871/e9e51d0f-c652-4fb2-a8be-fdcfe1f4f2a5)
